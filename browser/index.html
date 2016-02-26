@@ -1,24 +1,41 @@
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--
-This is a skeleton html file that you can use to get you started on each new
-HTML project
-
-Name: Your Name Here
-Class: CIS 3303
-Section: x
--->
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>My Title</title>
+    <title>Mirror Mirror</title>
+    <link href="/style.css" rel="stylesheet" />
+    <script src="/angular/angular.js"></script>
+    <script src="/js/controllers/active.controller.js"></script>
+    <script src="/js/controllers/foggy.controller.js"></script>
+    <script src="/js/controllers/inactive.controller.js"></script>
+    <script src="/js/states.js"></script>
+    <script src="/js/factory.js"></script>
 </head>
 
-<body>
 
-<p>This is the first paragraph in the body of your new HTML file!</p>
+<body ng-app="app">
+<div id="main" class="container-fluid">
 
+    <div class="col-xs-2">
+        <sidebar>
+            <img src="juke.svg" class="logo">
+            <section>
+                <h4 class="playlist-item active">
+                    <a href="#">ALBUMS</a>
+                </h4>
+            </section>
+        </sidebar>
+    </div>
+
+
+
+
+    <div class="col-xs-10">
+
+    </div>
+
+    <footer>
+    </footer>
+
+</div>
 </body>
 </html>
-
