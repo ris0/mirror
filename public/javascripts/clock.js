@@ -2,14 +2,15 @@ var datetime = null,
 date = null;
 
 var update = function () {
-    date = moment(new Date())
+    date = moment(new Date());
     var html = '<p>' + date.format('dddd, MMMM Do') + '</p>';
     html += '<p id="time">' + date.format('HH:mm') + '</p>';
-    datetime.html(html);
+
+    $('#date').html(html);
 };
 
 $(document).ready(function() {
-    datetime = $('#date');
+    $('#date').html(date);
     update();
-    setInterval(update, 10000);
+    setInterval(update, 1000);
 });
