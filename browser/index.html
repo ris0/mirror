@@ -2,6 +2,39 @@
 <html lang="en">
 
 <head>
+    <script src="headtrackr.js"></script>
+    <script src="/three/three.js"></script>
+    <script src="/three/examples/js/controls/OrbitControls.js"></script>
+           <script type="x-shader/x-vertex" id="vertexshader">
+
+           attribute float size;
+           attribute vec3 customColor;
+           varying vec3 vColor;
+
+           void main() {
+
+               vColor = customColor;
+               vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+               gl_PointSize = size * ( 300.0 / -mvPosition.z );
+               gl_Position = projectionMatrix * mvPosition;
+           }
+
+       </script>
+
+       <script type="x-shader/x-fragment" id="fragmentshader">
+
+           uniform vec3 color;
+           uniform sampler2D texture;
+
+           varying vec3 vColor;
+
+           void main() {
+               gl_FragColor = vec4( color * vColor, 1.0 );
+               gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
+           }
+
+    </script>
+
     <title>Mirror Mirror</title>
     <link href="/stylesheets/style.css" rel="stylesheet"/>
     <link href="/stylesheets/main.css" rel="stylesheet">
@@ -12,7 +45,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-    <script src="headtrackr.js"></script>
+
     <!-- active template stuff -->
     <script src="/javascripts/vendor/jquery-1.11.3.min.js"></script>
     <script src="/javascripts/vendor/jquery.simpleWeather.min.js"></script>
@@ -44,14 +77,14 @@
 </head>
 
 <body ng-app="app">
-    <div id="demo-container">
-        <video id="inputVideo" width="300" height="200" camera="true" autoplay loop></video>
-        <canvas id="inputCanvas" width="300" height="200"></canvas>
-    </div>
 
 
     <div ng-controller="appCtrl">
         <ui-view></ui-view>
+    </div>
+    <div id="demo-container">
+        <video id="inputVideo" width="200" height="200" camera="true" autoplay loop></video>
+        <canvas id="inputCanvas" width="200" height="200"></canvas>
     </div>
 
 

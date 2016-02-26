@@ -1,0 +1,32 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="clmtracker.js"></script>
+    <script src="faceModel.js"></script>
+    <title>Mirror Mirror</title>
+</head>
+
+<body>
+  <div id="demo-container">
+    <video id="inputVideo" width="300" height="200" camera="true" autoplay loop></video>
+    <canvas id="inputCanvas" width="300" height="200"></canvas>
+  </div>
+  <script type="text/javascript">
+
+  
+  window.onload = function () {
+    var videoInput = document.getElementById('inputCanvas');
+    var ctracker = new clm.tracker();
+    ctracker.init(pModel);
+    ctracker.start(videoInput);
+  }
+
+  </script>
+
+</body>
+
+</html>
+

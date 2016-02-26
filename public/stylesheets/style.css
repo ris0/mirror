@@ -16,11 +16,24 @@ html {
     line-height: 1.4;
 }
 
-ui-view {
+/*ui-view {
   position: relative;
   height: 1000px;
+}*/
+
+#inputVideo, #inputCanvas {
+/*    margin-left: 10px;
+  margin-top: 10px;*/
+  bottom: 15px;
+  right: 15px;
+  /*this prevents the canvas from not overlaping with the video*/
+  position: absolute;
+  border-radius: 5px;
 }
 
+/*#container {
+    z-index: 2;
+}*/
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
