@@ -12,7 +12,8 @@ app.controller('appCtrl', function($scope, $log, $state) {
         annyang.addCommands(commands);
 
         // Start listening.
-        annyang.start();
+        annyang.init()
+        // annyang.start();
     }
 
 });
