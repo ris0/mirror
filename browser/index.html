@@ -3,39 +3,30 @@
 
 <head>
     <title>Mirror Mirror</title>
-    <!-- <link href="/stylesheets/style.css" rel="stylesheet"/> -->
-    <script src="/three/three.js"></script>
-    <script src="/three/examples/js/controls/OrbitControls.js"></script>
-            <script type="x-shader/x-vertex" id="vertexshader">
+    <link href="/stylesheets/style.css" rel="stylesheet"/>
+    <link href="/stylesheets/main.css" rel="stylesheet">
+    <link href="/stylesheets/weather.css" rel="stylesheet">
 
-            attribute float size;
-            attribute vec3 customColor;
-            varying vec3 vColor;
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-            void main() {
+    <!-- active template stuff -->
 
-                vColor = customColor;
-                vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-                gl_PointSize = size * ( 300.0 / -mvPosition.z );
-                gl_Position = projectionMatrix * mvPosition;
-            }
+    <script src="/javascripts/vendor/jquery-1.11.3.min.js"></script>
+    <script src="/javascripts/vendor/jquery.simpleWeather.min.js"></script>
+    <script src="/javascripts/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="/javascripts/vendor/moment.js"></script>
 
-        </script>
+    <!--TODO: check to see if this depends on anything else-->
+    <script src="/javascripts/skycons.js"></script>
+    <script src="/javascripts/plugins.js"></script>
+    <script type="text/javascript" src="/javascripts/clock.js"></script>
+    <script type="text/javascript" src="/javascripts/weather.js"></script>
+    <script type="text/javascript" src="/javascripts/pianobar.js"></script>
 
-        <script type="x-shader/x-fragment" id="fragmentshader">
-
-            uniform vec3 color;
-            uniform sampler2D texture;
-
-            varying vec3 vColor;
-
-            void main() {
-                gl_FragColor = vec4( color * vColor, 1.0 );
-                gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
-            }
-
-        </script>
-
+    <!-- angular stuff -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -46,6 +37,10 @@
     <script src="/js/controllers/inactive.controller.js" defer></script>
     <script src="/js/states.js" defer></script>
     <script src="/js/factory.js" defer></script>
+
+
+
+
 </head>
 
 <body ng-app="app">

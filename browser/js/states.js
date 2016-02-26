@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
     })
     .state("active", {
         url: "/active",
-        template: "",
+        templateUrl: "/js/active.template.html",
         controller: "activeCtrl"
     });
 });
