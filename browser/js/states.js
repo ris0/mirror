@@ -12,8 +12,8 @@ app.config(function ($stateProvider) {
         controller: "foggyCtrl"
     })
     .state("active", {
-    url: "/active",
-    template: "",
-    controller: "activeCtrl"
+        url: "/active",
+        template: "",
+        controller: "activeCtrl"
     })
 })

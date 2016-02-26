@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Mirror Mirror</title>
-    <link href="/stylesheets/style.css" rel="stylesheet"/>
+    <link href="/stylesheets/style.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
     <script src="/angular/angular.js" defer></script>
     <script src="/angular-ui-router/release/angular-ui-router.min.js" defer></script>
     <script src="/js/module.js" defer></script>
+    <script src="/js/controllers/app.controller.js" defer></script>
     <script src="/js/controllers/active.controller.js" defer></script>
     <script src="/js/controllers/foggy.controller.js" defer></script>
     <script src="/js/controllers/inactive.controller.js" defer></script>
@@ -13,13 +16,12 @@
     <script src="/js/factory.js" defer></script>
 </head>
 
-
 <body ng-app="app">
-
-<div>
-    <ui-view></ui-view>
-
-</div>
+    <div ng-controller="appCtrl">
+        <ui-view></ui-view>
+    </div>
 
 </body>
+
 </html>
+
