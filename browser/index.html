@@ -2,40 +2,24 @@
 <html lang="en">
 <head>
     <title>Mirror Mirror</title>
-    <link href="/style.css" rel="stylesheet" />
-    <script src="/angular/angular.js"></script>
-    <script src="/js/controllers/active.controller.js"></script>
-    <script src="/js/controllers/foggy.controller.js"></script>
-    <script src="/js/controllers/inactive.controller.js"></script>
-    <script src="/js/states.js"></script>
-    <script src="/js/factory.js"></script>
+    <link href="/stylesheets/style.css" rel="stylesheet"/>
+    <script src="/angular/angular.js" defer></script>
+    <script src="/angular-ui-router/release/angular-ui-router.min.js" defer></script>
+    <script src="/js/module.js" defer></script>
+    <script src="/js/controllers/active.controller.js" defer></script>
+    <script src="/js/controllers/foggy.controller.js" defer></script>
+    <script src="/js/controllers/inactive.controller.js" defer></script>
+    <script src="/js/states.js" defer></script>
+    <script src="/js/factory.js" defer></script>
 </head>
 
 
 <body ng-app="app">
-<div id="main" class="container-fluid">
 
-    <div class="col-xs-2">
-        <sidebar>
-            <img src="juke.svg" class="logo">
-            <section>
-                <h4 class="playlist-item active">
-                    <a href="#">ALBUMS</a>
-                </h4>
-            </section>
-        </sidebar>
-    </div>
-
-
-
-
-    <div class="col-xs-10">
-
-    </div>
-
-    <footer>
-    </footer>
+<div>
+    <ui-view></ui-view>
 
 </div>
+
 </body>
 </html>
