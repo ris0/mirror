@@ -1,232 +1,199 @@
-app.controller('foggyCtrl', function($scope) {
+app.controller('foggyCtrl', function($scope, $state) {
 
+    var container;
+            var camera, scene, renderer, particles, geometry, materials = [], parameters, i, h, color, size;
+            var mouseX = 0, mouseY = 0;
 
-    // console.log("starting");
+            var windowHalfX = window.innerWidth / 2;
+            var windowHalfY = window.innerHeight / 2;
 
-    // //scene
-    // scene = new THREE.Scene();
-    // //camera
-    // var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    // camera.position.set(0, -13, 5);
-    // camera.lookAt(new THREE.Vector3(0, 5, 0));
+            init();
+            animate();
 
-    // //renderer
-    // var renderer = new THREE.WebGLRenderer();
-    // renderer.setSize(window.innerWidth, window.innerHeight);
+            function init() {
 
-    // //controls
-    // var controls = new THREE.OrbitControls(camera, renderer.domElement);
+                container = document.createElement( 'div' );
+                document.body.appendChild( container );
 
-    // //show canvas
-    // $("#canvas-container").html(renderer.domElement);
+                camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
+                camera.position.z = 1000;
 
+                scene = new THREE.Scene();
+                scene.fog = new THREE.FogExp2( 0x000000, 0.007 );
 
-    // //directional light
-    // var directionalLight = new THREE.DirectionalLight(0xffffff);
-    // directionalLight.position.set(6, 0, 6);
-    // scene.add(directionalLight);
+                geometry = new THREE.Geometry();
 
-    // //sphere
-    // //SphereGeometry(RADIUS,SEGMENTWIDTH,SEGMENTHEIGHT)
-    // var geometry = new THREE.SphereGeometry(3, 10, 10);
-    // var material = new THREE.MeshBasicMaterial({ wireframe: true, color: 0x555555 });
-    // var sphere = new THREE.Mesh(geometry, material);
-    // sphere.position.set(0, 0, 1);
-    // scene.add(sphere);
+                for ( i = 0; i < 20000; i ++ ) {
 
+                    var vertex = new THREE.Vector3();
+                    vertex.x = Math.random() * 2000 - 1000;
+                    vertex.y = Math.random() * 2000 - 1000;
+                    vertex.z = Math.random() * 2000 - 1000;
 
-    // //grid xy
-    // var gridXY = new THREE.GridHelper(10, 1);
-    // gridXY.rotation.x = Math.PI / 2;
-    // scene.add(gridXY);
+                    geometry.vertices.push( vertex );
 
+                }
 
+                parameters = [
+                    [ [1, 1, 0.5], 5 ],
+                    [ [0.95, 1, 0.5], 4 ],
+                    [ [0.90, 1, 0.5], 3 ],
+                    [ [0.85, 1, 0.5], 2 ],
+                    [ [0.80, 1, 0.5], 1 ]
+                ];
 
-    // //particle
-    // //smoke bomb
-    // var settings = {
-    //     positionStyle: Type.SPHERE,
-    //     positionBase: new THREE.Vector3(0, 0, 1),
-    //     positionRadius: 1,
+                for ( i = 0; i < parameters.length; i ++ ) {
 
-    //     velocityStyle: Type.SPHERE,
-    //     speedBase: 2,
-    //     speedSpread: 4,
+                    color = parameters[i][0];
+                    size  = parameters[i][1];
 
-    //     particleTexture: THREE.ImageUtils.loadTexture('http://vignette3.wikia.nocookie.net/roblox/images/c/c6/Smoke.png/revision/latest?cb=20091213220753'),
+                    materials[i] = new THREE.PointsMaterial( { size: size } );
 
-    //     sizeTween: new Tween([0, 4], [5, 10]),
-    //     opacityTween: new Tween([0, 5], [0.6, 0.3]),
-    //     colorTween: new Tween([0.2, 1], [new THREE.Vector3(0.0, 0, 1), new THREE.Vector3(0.05, 0, 0.5)]),
+                    particles = new THREE.Points( geometry, materials[i] );
 
-    //     particlesPerSecond: 100,
-    //     particleDeathAge: 4,
-    //     emitterDeathAge: 60
-    // };
+                    particles.rotation.x = Math.random() * 6;
+                    particles.rotation.y = Math.random() * 6;
+                    particles.rotation.z = Math.random() * 6;
 
-    // engine = new ParticleEngine();
-    // engine.setValues(settings);
-    // engine.initialize();
+                    scene.add( particles );
 
+                }
 
+                renderer = new THREE.WebGLRenderer();
+                renderer.setPixelRatio( window.devicePixelRatio );
+                renderer.setSize( window.innerWidth, window.innerHeight );
+                container.appendChild( renderer.domElement );
 
-    // //render scene
-    // var render = function() {
-    //     requestAnimationFrame(render);
-    //     renderer.render(scene, camera);
+                document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+                document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+                document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 
-    //     engine.update(0.01 * 0.5);
-    // };
+                //
 
-    // render();
+                window.addEventListener( 'resize', onWindowResize, false );
 
-		// var renderer, scene, camera;
+            }
 
-		// var particleSystem, uniforms, geometry;
+            function onWindowResize() {
 
-		// var particles = 100000;
+                windowHalfX = window.innerWidth / 2;
+                windowHalfY = window.innerHeight / 2;
 
-		// var WIDTH = window.innerWidth;
-		// var HEIGHT = window.innerHeight;
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
 
-		// init();
-		// animate();
+                renderer.setSize( window.innerWidth, window.innerHeight );
 
-		// function init() {
+            }
 
-		// 	camera = new THREE.PerspectiveCamera( 40, WIDTH / HEIGHT, 1, 10000 );
-		// 	camera.position.z = 300;
+            function onDocumentMouseMove( event ) {
 
-		// 	scene = new THREE.Scene();
+                mouseX = event.clientX - windowHalfX;
+                mouseY = event.clientY - windowHalfY;
 
-		// 	uniforms = {
+            }
 
-		// 		color:     { type: "c", value: new THREE.Color( 0xffffff ) },
-		// 		texture:   { type: "t", value: new THREE.TextureLoader().load( "textures/sprites/spark1.png" ) }
+            function onDocumentTouchStart( event ) {
 
-		// 	};
+                if ( event.touches.length === 1 ) {
 
-		// 	var shaderMaterial = new THREE.ShaderMaterial( {
+                    event.preventDefault();
 
-		// 		uniforms:       uniforms,
-		// 		vertexShader:   document.getElementById( 'vertexshader' ).textContent,
-		// 		fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+                    mouseX = event.touches[ 0 ].pageX - windowHalfX;
+                    mouseY = event.touches[ 0 ].pageY - windowHalfY;
 
-		// 		blending:       THREE.AdditiveBlending,
-		// 		depthTest:      false,
-		// 		transparent:    true
+                }
 
-		// 	});
+            }
 
+            function onDocumentTouchMove( event ) {
 
-		// 	var radius = 200;
+                if ( event.touches.length === 1 ) {
 
-		// 	geometry = new THREE.BufferGeometry();
+                    event.preventDefault();
 
-		// 	var positions = new Float32Array( particles * 3 );
-		// 	var colors = new Float32Array( particles * 3 );
-		// 	var sizes = new Float32Array( particles );
+                    mouseX = event.touches[ 0 ].pageX - windowHalfX;
+                    mouseY = event.touches[ 0 ].pageY - windowHalfY;
 
-		// 	var color = new THREE.Color();
+                }
 
-		// 	for ( var i = 0, i3 = 0; i < particles; i ++, i3 += 3 ) {
+            }
 
-		// 		positions[ i3 + 0 ] = ( Math.random() * 2 - 1 ) * radius;
-		// 		positions[ i3 + 1 ] = ( Math.random() * 2 - 1 ) * radius;
-		// 		positions[ i3 + 2 ] = ( Math.random() * 2 - 1 ) * radius;
+            //
 
-		// 		color.setHSL( i / particles, 1.0, 0.5 );
+            function animate() {
 
-		// 		colors[ i3 + 0 ] = color.r;
-		// 		colors[ i3 + 1 ] = color.g;
-		// 		colors[ i3 + 2 ] = color.b;
+                requestAnimationFrame( animate );
 
-		// 		sizes[ i ] = 20;
+                render();
 
-		// 	}
+            }
 
-		// 	geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-		// 	geometry.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
-		// 	geometry.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
+            function render() {
 
-		// 	particleSystem = new THREE.Points( geometry, shaderMaterial );
+                var time = Date.now() * 0.00005;
 
-		// 	scene.add( particleSystem );
+                camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+                camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
 
-		// 	renderer = new THREE.WebGLRenderer();
-		// 	renderer.setPixelRatio( window.devicePixelRatio );
-		// 	renderer.setSize( WIDTH, HEIGHT );
+                camera.lookAt( scene.position );
 
-		// 	var container = document.getElementById( 'container' );
-		// 	container.appendChild( renderer.domElement );
+                for ( i = 0; i < scene.children.length; i ++ ) {
 
-		// 	//
+                    var object = scene.children[ i ];
 
-		// 	window.addEventListener( 'resize', onWindowResize, false );
+                    if ( object instanceof THREE.Points ) {
 
-		// }
+                        object.rotation.y = time * ( i < 4 ? i + 1 : - ( i + 1 ) );
 
-		// function onWindowResize() {
+                    }
 
-		// 	camera.aspect = window.innerWidth / window.innerHeight;
-		// 	camera.updateProjectionMatrix();
+                }
 
-		// 	renderer.setSize( window.innerWidth, window.innerHeight );
+                for ( i = 0; i < materials.length; i ++ ) {
 
-		// }
+                    color = parameters[i][0];
 
-		// function animate() {
+                    h = ( 360 * ( color[0] + time ) % 360 ) / 360;
+                    materials[i].color.setHSL( h, color[1], color[2] );
 
-		// 	console.log("animatin'");
+                }
 
-		// 	requestAnimationFrame( animate );
+                renderer.render( scene, camera );
 
-		// 	render();
+            }
 
-		// }
+      // face detection events
 
-		// function render() {
+    function loadFace () {
+      var canvas = document.getElementById("inputCanvas");
+      var context = canvas.getContext("2d");
+      var videoInput = document.getElementById('inputVideo');
+      var canvasInput = document.getElementById('inputCanvas');
+            console.log(canvas, context, videoInput, canvasInput)
+      var threejs = document.getElementById("container");
 
-		// 	var time = Date.now() * 0.005;
+      var htracker = new headtrackr.Tracker({ui : false});
+      htracker.init(videoInput, canvasInput);
+      htracker.start();
 
-		// 	particleSystem.rotation.z = 0.01 * time;
+      document.addEventListener("headtrackrStatus", function (event) {
+        //console.log(event);
+        if (event.status === "lost") {
+          // facefound = false;
+        }
+        if (event.status === "found") {
+          // document.removeEventListener("headtrackrStatus");
+          console.log("WOOT")
+          //document.body.removeChild(document.getElementById("container"));
+            document.body.removeChild(document.getElementById("inputVideo"))
+            document.body.removeChild(document.getElementById("inputCanvas"))
+          $state.go("active");
+        }
+      });
 
-		// 	var sizes = geometry.attributes.size.array;
+    }
 
-		// 	for ( var i = 0; i < particles; i++ ) {
-
-		// 		sizes[ i ] = 10 * ( 1 + Math.sin( 0.1 * i + time ) );
-
-		// 	}
-
-		// 	geometry.attributes.size.needsUpdate = true;
-
-		// 	renderer.render( scene, camera );
-		// }
-
-		var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
-
-			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			var cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
-
-			camera.position.z = 5;
-
-			var render = function () {
-				requestAnimationFrame( render );
-
-				cube.rotation.x += 0.1;
-				cube.rotation.y += 0.1;
-
-				renderer.render(scene, camera);
-			};
-
-			render();
+    loadFace();
 
 });
