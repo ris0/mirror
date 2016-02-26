@@ -8,12 +8,12 @@ app.config(function ($stateProvider) {
     })
     .state("foggy", {
         url: "/foggy",
-        template: "",
+        templateUrl: "/js/foggy.template.html",
         controller: "foggyCtrl"
     })
     .state("active", {
         url: "/active",
         template: "",
         controller: "activeCtrl"
-    })
-})
+    });
+});
