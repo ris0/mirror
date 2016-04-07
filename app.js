@@ -22,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(browserPath));
 app.use(express.static(nodeModulesPath));
+app.use('/api', routes);
 
 app.get('/*', function (req, res) {
   res.sendFile(indexPath);

@@ -14,3 +14,4 @@ $(document).ready(function() {
     update();
     setInterval(update, 1000);
 });
+

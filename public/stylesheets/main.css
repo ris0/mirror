@@ -120,7 +120,7 @@ canvas {
 #date {
     float: left;
     width: 400px;
-<!--    height:500px;-->
+    height:500px;
     margin: 0 0 0 0;
 }
 
@@ -131,6 +131,15 @@ canvas {
 #time {
     font-size: 4em;
     padding: 0px;
+}
+
+#transit{
+    font-size: 2em;
+    margin: 0px;
+}
+
+h6{
+    margin: 3px;
 }
 
 section {

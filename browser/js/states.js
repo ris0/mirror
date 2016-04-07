@@ -14,6 +14,11 @@ app.config(function ($stateProvider) {
     .state("active", {
         url: "/active",
         templateUrl: "/js/active.template.html",
-        controller: "activeCtrl"
+        controller: "activeCtrl",
+        resolve: {
+            gTransit: function (Gmap) {
+                return Gmap.getDirections();
+            }
+        }
     });
 });

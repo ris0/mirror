@@ -2,10 +2,14 @@
 <html lang="en">
 
 <head>
+
+    <title>Mirror Mirror</title>
+
+    <!--threejs-->
     <script src="headtrackr.js"></script>
     <script src="/three/three.js"></script>
     <script src="/three/examples/js/controls/OrbitControls.js"></script>
-           <script type="x-shader/x-vertex" id="vertexshader">
+    <script type="x-shader/x-vertex" id="vertexshader">
 
            attribute float size;
            attribute vec3 customColor;
@@ -21,7 +25,7 @@
 
        </script>
 
-       <script type="x-shader/x-fragment" id="fragmentshader">
+    <script type="x-shader/x-fragment" id="fragmentshader">
 
            uniform vec3 color;
            uniform sampler2D texture;
@@ -35,7 +39,8 @@
 
     </script>
 
-    <title>Mirror Mirror</title>
+
+    <!--style sheet-->
     <link href="/stylesheets/style.css" rel="stylesheet"/>
     <link href="/stylesheets/main.css" rel="stylesheet">
     <link href="/stylesheets/weather.css" rel="stylesheet">
@@ -51,28 +56,31 @@
     <script src="/javascripts/vendor/modernizr-2.8.3.min.js"></script>
     <script src="/javascripts/vendor/moment.js"></script>
 
-    <!--TODO: check to see if this depends on anything else-->
+    <!--active state dependencies-->
     <script src="/javascripts/skycons.js"></script>
-    <script src="/javascripts/main.js"></script>
     <script src="/javascripts/plugins.js"></script>
     <script type="text/javascript" src="/javascripts/clock.js"></script>
     <script type="text/javascript" src="/javascripts/weather.js"></script>
-    <script type="text/javascript" src="/javascripts/pianobar.js"></script>
+
+    <!--voic recognition-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
 
     <!-- angular stuff -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+    <!--app module definition-->
     <script src="/js/module.js" defer></script>
+
+    <!--controller definition-->
     <script src="/js/controllers/app.controller.js" defer></script>
     <script src="/js/controllers/active.controller.js" defer></script>
     <script src="/js/controllers/foggy.controller.js" defer></script>
     <script src="/js/controllers/inactive.controller.js" defer></script>
-    <script src="/js/states.js" defer></script>
+
+    <!--factory and state -->
     <script src="/js/factory.js" defer></script>
-
-
-
+    <script src="/js/states.js" defer></script>
 
 </head>
 
